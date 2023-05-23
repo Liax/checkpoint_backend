@@ -6,16 +6,27 @@ import Country, { CountryInput } from "../entity/Country";
 export class CountryResolver {
   @Query(() => [Country])
   async getCountries(): Promise<Country[]> {
-    return await datasource.getRepository(Country).find({});
+    return await datasource.getRepository(Country).find();
   }
 
   @Query(() => Country)
   async getOneCountryByCode(@Arg("code") code: string): Promise<Country> {
     const countryToFind = await datasource.getRepository(Country).findOne({
-      where: { code: code },
+      where: { code },
     });
     if (countryToFind === null) throw new Error("Country not found");
     return countryToFind;
+  }
+
+  @Query(() => Country)
+  async getCountryByContinent(
+    @Arg("continentCode") continentCode: string
+  ): Promise<Country[]> {
+    const countriesToFind = await datasource.getRepository(Country).find({
+      where: { continentCode },
+    });
+    if (countriesToFind === null) throw new Error("Continent not found");
+    return countriesToFind;
   }
 
   @Mutation(() => Country)

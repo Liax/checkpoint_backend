@@ -16,6 +16,10 @@ class Country {
   @Field()
   @Column({ length: 100 })
   emoji?: string;
+
+  @Field()
+  @Column({ length: 2 })
+  continentCode?: string;
 }
 
 @InputType()
@@ -31,6 +35,10 @@ export class CountryInput {
   @Field()
   @MaxLength(100)
   emoji: string = "";
+
+  @Field()
+  @MaxLength(2)
+  continentCode?: string;
 }
 
 export default Country;
