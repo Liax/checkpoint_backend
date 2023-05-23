@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es2018",
+    "target": "es2022",
     "module": "commonjs",
-    "lib": ["es2018", "esnext.asynciterable"],
+    "lib": ["es2022", "esnext.asynciterable"],
     "allowJs": true,
     "outDir": "build",
     "rootDir": "src",

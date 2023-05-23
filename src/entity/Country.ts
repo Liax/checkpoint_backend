@@ -1,20 +1,36 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
-import { Field, ObjectType, InputType } from "type-graphql";
+import { Field, InputType, ObjectType } from "type-graphql";
+import { MaxLength } from "class-validator";
+import { Column, Entity, PrimaryColumn } from "typeorm";
 
-@ObjectType()
 @Entity()
-export class Country {
+@ObjectType()
+class Country {
   @Field()
-  @PrimaryGeneratedColumn()
-  id!: number;
+  @PrimaryColumn()
+  code: string = "";
 
   @Field()
-  @Column()
-  name!: string;
+  @Column({ length: 100 })
+  name?: string;
 
   @Field()
-  @Column()
-  emoji!: string;
-
-  // Autres propriétés...
+  @Column({ length: 100 })
+  emoji?: string;
 }
+
+@InputType()
+export class CountryInput {
+  @Field()
+  @MaxLength(2)
+  code: string = "";
+
+  @Field()
+  @MaxLength(100)
+  name: string = "";
+
+  @Field()
+  @MaxLength(100)
+  emoji: string = "";
+}
+
+export default Country;
